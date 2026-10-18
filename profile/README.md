@@ -32,10 +32,10 @@ Open `http://localhost:8080` a minute later. The [synclet README](https://github
 | Repository | Description |
 |---|---|
 | [synclet](https://github.com/synclet-io/synclet) | The platform: API server, scheduler, executors and web UI |
-| [connectors](https://github.com/synclet-io/connectors) | MIT Go connectors for Synclet |
+| [connectors](https://github.com/synclet-io/connectors) | MIT Go connectors for Synclet, and the default Synclet registry (`registry.json` served via GitHub Pages) |
 | [synclet-go-sdk](https://github.com/synclet-io/synclet-go-sdk) | Go SDK for writing connectors |
 | [synclet-connectors-template](https://github.com/synclet-io/synclet-connectors-template) | Template for running your own connector registry |
-| [synclet-connector-registry](https://github.com/synclet-io/synclet-connector-registry) | Registry of Synclet's Go connectors, served via GitHub Pages |
+| [synclet-connector-registry](https://github.com/synclet-io/synclet-connector-registry) | Earlier location of the Synclet registry; Synclet now uses the registry served from `connectors` |
 | [synclet-site](https://github.com/synclet-io/synclet-site) | Documentation site |
 
 ## License
