@@ -1,63 +1,45 @@
 # Synclet
 
-**Open-source data synchronization platform built on the [Airbyte connector protocol](https://docs.airbyte.com/understanding-airbyte/airbyte-protocol).**
+**Run Airbyte connectors without Airbyte. One Go binary, one PostgreSQL.**
 
-Connect any source to any destination with automatic schema detection, incremental sync, and real-time monitoring — all from a single Go binary.
+Synclet is a self-hosted, MIT-licensed control plane for connectors that implement the [Airbyte Protocol](https://docs.airbyte.com/platform/understanding-airbyte/airbyte-protocol): schema discovery, full refresh and incremental sync, scheduling and monitoring, with connectors running as Docker containers or Kubernetes pods.
 
----
+- [Documentation](https://synclet-io.github.io/synclet-site/docs/getting-started/introduction/)
+- [Tested with](https://synclet-io.github.io/synclet-site/docs/concepts/connectors/#tested-with): the connector images and versions run end to end, and the known issues
+- [Connector licenses](https://synclet-io.github.io/synclet-site/docs/reference/connector-licenses/): connectors keep their own licenses; most Airbyte connectors are ELv2 since 2025-07-22
+- [Roadmap](https://github.com/synclet-io/synclet/blob/main/ROADMAP.md)
+
+## Quick start
+
+```bash
+git clone https://github.com/synclet-io/synclet && cd synclet && docker compose up -d
+```
+
+Open `http://localhost:8080` a minute later. The [synclet README](https://github.com/synclet-io/synclet#readme) covers secrets, Helm and production setup.
+
+## Features
+
+- **Airbyte Protocol connectors**: runs source and destination images that implement the Airbyte Protocol, plus MIT Go connectors
+- **Execution**: Docker or Kubernetes executors, or the CLI
+- **Workspaces with RBAC**: admin, editor and viewer roles for the teams of one organization
+- **Secrets**: connector configuration encrypted with AES-256-GCM
+- **OIDC SSO** with any OpenID Connect provider
+- **Notifications**: Slack, email, Telegram and webhook alerts on sync events
+- **Audit log** and YAML workspace export and import
 
 ## Repositories
 
 | Repository | Description |
 |---|---|
-| [**synclet**](https://github.com/synclet-io/synclet) | Core platform — API server, scheduler, workers, and frontend |
-| [**synclet-connector-registry**](https://github.com/synclet-io/synclet-connector-registry) | Airbyte-format connector registry served via GitHub Pages |
-
----
-
-## What is Synclet?
-
-Synclet is a **modular monolith** written in Go that runs the API server, scheduler, and sync workers as goroutines inside a single binary. It is fully compatible with the Airbyte connector protocol, meaning you can use the entire ecosystem of existing Airbyte source and destination connectors out of the box, while also supporting high-performance Go-native connectors.
-
-**Key features:**
-
-- 🔌 **Airbyte Protocol Compatible** — drop-in support for any Airbyte source or destination connector
-- 🐳 **Multiple Execution Modes** — Docker, Kubernetes, or CLI
-- 🔒 **Secrets Management** — AES-256-GCM encrypted connector configuration
-- 🔐 **OIDC Authentication** — SSO with any OpenID Connect provider
-- 🏢 **Workspace Isolation** — multi-tenant with role-based access control
-- 🔔 **Notification Channels** — Slack, Email, and Telegram alerts on sync events
-- 📊 **Dashboard & Stats** — connection health, sync timeline, records/bytes metrics
-- ⚡ **Go-native Connectors** — high-performance connectors built alongside Docker-based Airbyte connectors
-
----
-
-## Tech Stack
-
-| Layer | Technologies |
-|---|---|
-| Backend | Go, ConnectRPC (protobuf), PostgreSQL, GORM, Uber FX |
-| Frontend | Vue 3, TypeScript, TanStack Vue Query, Tailwind CSS |
-| Connectors | Docker (Airbyte protocol) + Go-native (airbyte-go-sdk) |
-| Orchestration | Docker (default) or Kubernetes |
-
----
-
-## Quick Start
-
-```bash
-git clone https://github.com/synclet-io/synclet && cd synclet
-docker compose up -d          # start PostgreSQL
-cp .env.example .env          # configure environment
-go run main.go migrate up     # run migrations
-task dev                      # start backend with hot reload
-cd front && bun install && bun run dev  # start frontend
-```
-
-See the [synclet README](https://github.com/synclet-io/synclet#readme) for the full setup guide.
-
----
+| [synclet](https://github.com/synclet-io/synclet) | The platform: API server, scheduler, executors and web UI |
+| [connectors](https://github.com/synclet-io/connectors) | MIT Go connectors for Synclet |
+| [synclet-go-sdk](https://github.com/synclet-io/synclet-go-sdk) | Go SDK for writing connectors |
+| [synclet-connectors-template](https://github.com/synclet-io/synclet-connectors-template) | Template for running your own connector registry |
+| [synclet-connector-registry](https://github.com/synclet-io/synclet-connector-registry) | Registry of Synclet's Go connectors, served via GitHub Pages |
+| [synclet-site](https://github.com/synclet-io/synclet-site) | Documentation site |
 
 ## License
 
-Synclet is open source. See [LICENSE](https://github.com/synclet-io/synclet/blob/main/LICENSE) in the main repository.
+Synclet is MIT licensed, with every feature in the self-hosted binary. Connectors are separate images with their own licenses, see [Connector licenses](https://synclet-io.github.io/synclet-site/docs/reference/connector-licenses/).
+
+Airbyte is a trademark of Airbyte, Inc. Synclet is not affiliated with, endorsed by or sponsored by Airbyte, Inc.
